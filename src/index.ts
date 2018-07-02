@@ -1,10 +1,9 @@
 /** @license MIT License (c) copyright 2018 original author or authors */
-/** @author Sergey Samokhov, hi@hoichi.io */
+/** @author Sergey Samokhov <hi@hoichi.io> */
 
-import {Disposable, Scheduler, Sink, Stream} from '@most/types'
+import { Disposable, Scheduler, Sink, Stream } from '@most/types'
 import { asap } from '@most/scheduler'
-import {ArrayTask} from "./ArrayTask"
-
+import { ArrayTask } from "./ArrayTask"
 
 // fromArray :: e[] -> Stream e
 function fromArray<T>(a: T[]) {
@@ -19,4 +18,4 @@ class FromArray<T> implements Stream<T> {
   };
 }
 
-export { fromArray }
+export { fromArray, fromArray as default }

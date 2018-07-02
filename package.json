@@ -1,21 +1,20 @@
 {
-  "private": true,
-  "name": "most-package-seed",
-  "description": "Starter kit for a most/core package",
-  "version": "0.0.0",
+  "name": "most-from-array",
+  "description": "Creates a mostjs stream from an array",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "module": "lib.es2015/index.js",
   "jsnext:main": "lib.es2015/index.js",
   "typings": "lib/index.d.ts",
   "license": "MIT",
-  "author": "",
-  "homepage": "https://github.com/mostjs-community/PACKAGE-NAME#readme",
+  "author": "Sergey Samokhov <hi@hoichi.io> (https://hoichi.io)",
+  "homepage": "https://github.com/mostjs-community/most-from-array#readme",
   "bugs": {
-    "url": "https://github.com/mostjs-community/PACKAGE-NAME/issues"
+    "url": "https://github.com/mostjs-community/most-from-array/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mostjs-community/PACKAGE-NAME.git"
+    "url": "git+https://github.com/mostjs-community/most-from-array.git"
   },
   "keywords": [
     "most",
