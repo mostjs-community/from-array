@@ -3,19 +3,19 @@
 
 import { Disposable, Scheduler, Sink, Stream } from '@most/types'
 import { asap } from '@most/scheduler'
-import { ArrayTask } from "./ArrayTask"
+import { ArrayTask } from './ArrayTask'
 
 // fromArray :: e[] -> Stream e
-function fromArray<T>(a: T[]) {
+function fromArray<T> (a: T[]) {
   return new FromArray(a)
 }
 
 class FromArray<T> implements Stream<T> {
-  constructor(private a: T[]) {}
+  constructor (private a: T[]) {}
 
-  run(sink: Sink<T>, scheduler: Scheduler): Disposable {
+  run (sink: Sink<T>, scheduler: Scheduler): Disposable {
     return asap(new ArrayTask(this.a, sink), scheduler)
-  };
+  }
 }
 
 export { fromArray }

@@ -1,26 +1,26 @@
-import {Sink, Task, Time} from '@most/types'
+import { Sink, Task, Time } from '@most/types'
 
 export class ArrayTask<T> implements Task {
   private active: boolean = true
 
-  constructor(private array: T[], private sink: Sink<T>) {}
+  constructor (private array: T[], private sink: Sink<T>) {}
 
-  run(time: Time) {
-    const { active, array, sink } = this
+  run (time: Time) {
+    const { array, sink } = this
     const { length } = array
 
-    for (let i = 0; i < length && active; i++) {
+    for (let i = 0; i < length && this.active; i++) {
       sink.event(time, array[i])
     }
 
-    active && sink.end(time)
+    this.active && sink.end(time)
   }
 
-  error(t: Time, e: Error) {
+  error (t: Time, e: Error) {
     this.sink.error(t, e)
   }
 
-  dispose() {
+  dispose () {
     this.active = false
   }
 }
