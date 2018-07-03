@@ -18,4 +18,4 @@ class FromArray<T> implements Stream<T> {
   };
 }
 
-export { fromArray, fromArray as default }
+export { fromArray }

@@ -34,13 +34,14 @@
           this.array = array;
           this.sink = sink;
           this.active = true;
-      } // fixme: order?
+      }
       ArrayTask.prototype.run = function (time) {
-          var _a = this, array = _a.array, sink = _a.sink;
+          var _a = this, active = _a.active, array = _a.array, sink = _a.sink;
           var length = array.length;
-          for (var i = 0; i < length && this.active; i++) {
+          for (var i = 0; i < length && active; i++) {
               sink.event(time, array[i]);
           }
+          active && sink.end(time);
       };
       ArrayTask.prototype.error = function (t, e) {
           this.sink.error(t, e);

@@ -6,12 +6,14 @@ export class ArrayTask<T> implements Task {
   constructor(private array: T[], private sink: Sink<T>) {}
 
   run(time: Time) {
-    const { array, sink } = this
+    const { active, array, sink } = this
     const { length } = array
 
-    for (let i = 0; i < length && this.active; i++) {
+    for (let i = 0; i < length && active; i++) {
       sink.event(time, array[i])
     }
+
+    active && sink.end(time)
   }
 
   error(t: Time, e: Error) {
