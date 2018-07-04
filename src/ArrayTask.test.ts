@@ -1,10 +1,10 @@
-import {describe, it} from 'mocha'
+import { describe, it } from 'mocha'
 import * as assert from 'power-assert'
 
 import { ArrayTask } from './ArrayTask'
-import {Sink, Time} from "@most/types"
+import { Sink, Time } from "@most/types"
 
-describe('@most/fromArray', () => {
+describe('ArrayTask', () => {
   let sink: GlassSink<number>
   let array: number[]
   let task: ArrayTask<number>
@@ -20,14 +20,20 @@ describe('@most/fromArray', () => {
     assert.deepEqual(sink.values, array)
   })
 
+  it('Should end the stream after normal run', () => {
+    task.run(0)
+    assert(sink.ended === true)
+  })
+
   it('Shouldn’t emit anything after dispose',  () => {
     task.dispose()
     task.run(0)
     assert.deepEqual(sink.values, [])
   })
 
-  it('Can be interrupted in the middle of things',  () => {
+  it('Can be terminated early',  () => {
     sink.maxEvents = 2
+    sink.onMaxOut = () => task.dispose()
     task.run(0)
     assert.deepEqual(sink.values, [1,2])
   })
@@ -36,24 +42,23 @@ describe('@most/fromArray', () => {
 class GlassSink<A = number> implements Sink<A> {
   values: A[] = []
   active: boolean = true
+  ended: boolean = false
   errorObj: Error | undefined
-  private _maxEvents = Infinity
+  maxEvents = Infinity
+  onMaxOut?: () => void
 
-  event(_: Time, value: A) {
-    if (this.values.length < this._maxEvents )
-      this.values.push(value)
+  event (_: Time, value: A) {
+    this.values.push(value)
+    if (this.values.length >= this.maxEvents && this.onMaxOut) this.onMaxOut()
   };
 
-  end(_: Time) {
+  end (_: Time) {
     this.active = false
+    this.ended = true
   };
 
-  error(_: Time, err: Error) {
+  error (_: Time, err: Error) {
     this.errorObj = err
     this.active = false
-  }
-
-  set maxEvents(n: number) {
-    this._maxEvents = n
   }
 }
