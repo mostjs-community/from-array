@@ -28,7 +28,7 @@
     "build": "npm run build:commonjs && npm run build:es2015 && npm run build:umd",
     "build:commonjs": "./node_modules/.bin/tsc -P cfg/tsconfig.commonjs.json",
     "build:es2015": "./node_modules/.bin/tsc -P cfg/tsconfig.es2015.json",
-    "build:umd": "mkdir -p dist && rollup -c --name 'from-event' && uglifyjs dist/most-from-event.js -o dist/most-from-event.min.js",
+    "build:umd": "mkdir -p dist && rollup -c --name 'from-event' && uglifyjs dist/most-from-array.js -o dist/most-from-array.min.js",
     "prepublish": "npm run build",
     "preversion": "npm run build",
     "test": "npm run test:lint && npm run test:unit",
